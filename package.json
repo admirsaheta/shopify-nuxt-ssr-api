@@ -11,8 +11,13 @@
   },
   "dependencies": {
     "@nuxt/content": "3.6.3",
+    "@shopify/shopify-api": "^11.11.1",
+    "@tailwindcss/vite": "^4.1.11",
     "nuxt": "^4.0.1",
+    "std-env": "^3.9.0",
+    "tailwindcss": "^4.1.11",
     "vue": "^3.5.17",
     "vue-router": "^4.5.1"
-  }
+  },
+  "devDependencies": {}
 }

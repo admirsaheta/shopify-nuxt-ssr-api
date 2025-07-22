@@ -1,75 +1,55 @@
-# Nuxt Minimal Starter
+# Shopify Reproduction
+![image](https://i.imgur.com/VUAj4iU.png)
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+This project is set up to reproduce the `Missing adapter implementation for 'abstractRuntimeString'` error when using `@shopify/shopify-api` with Nuxt 4.
 
-## Setup
+## Reproduction Steps
 
-Make sure to install dependencies:
+1.  **Clone the repository:**
+    ```bash
+    git clone <repository-url>
+    cd shopify-example
+    ```
 
-```bash
-# npm
-npm install
+2.  **Install dependencies using Bun:**
+    ```bash
+    bun install
+    ```
 
-# pnpm
-pnpm install
+3.  **Set up environment variables:**
+    Copy the example environment file and fill in your Shopify API credentials from your Partners Dashboard.
+    ```bash
+    cp .env.example .env
+    ```
+    Edit the `.env` file:
+    ```
+    SHOPIFY_CLIENT_ID=your_shopify_api_key_here
+    SHOPIFY_CLIENT_SECRET=your_shopify_api_secret_here
+    SHOPIFY_REDIRECT_URI=localhost:3000
+    ```
 
-# yarn
-yarn install
+4.  **Start the development server:**
+    ```bash
+    bun run dev
+    ```
 
-# bun
-bun install
-```
+5.  **Access the test page:**
+    Open your browser and navigate to `http://localhost:3000/`.
 
-## Development Server
+6.  **Trigger the error:**
+    On the test page, enter a Shopify store name (e.g., `your-store.myshopify.com`) and click "Test Shopify Auth".
 
-Start the development server on `http://localhost:3000`:
+    You should observe the `Missing adapter implementation for 'abstractRuntimeString'` error in your terminal where the Nuxt server is running, confirming the reproduction of the issue.
 
-```bash
-# npm
-npm run dev
+## Expected vs. Actual Behavior
 
-# pnpm
-pnpm dev
+-   **Expected:** The Shopify API should initialize correctly without adapter errors.
+-   **Actual:** The application throws `Missing adapter implementation for 'abstractRuntimeString'` when `shopifyApi()` is called in the server API route.
 
-# yarn
-yarn dev
+## Relevant Files
 
-# bun
-bun run dev
-```
+-   <mcfile name="server/api/shopify/auth.post.ts" path="server/api/shopify/auth.post.ts"></mcfile>: The server API route where `shopifyApi()` is initialized.
+-   <mcfile name="pages/test-shopify.vue" path="pages/test-shopify.vue"></mcfile>: The frontend page to trigger the API call.
+-   <mcfile name="nuxt.config.ts" path="nuxt.config.ts"></mcfile>: Nuxt configuration.
+-   <mcfile name="package.json" path="package.json"></mcfile>: Project dependencies.
 
-## Production
-
-Build the application for production:
-
-```bash
-# npm
-npm run build
-
-# pnpm
-pnpm build
-
-# yarn
-yarn build
-
-# bun
-bun run build
-```
-
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
